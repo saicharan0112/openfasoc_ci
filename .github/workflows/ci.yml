@@ -16,10 +16,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Pulling the docker image
-        run: docker pull saicharan0112/openfasoc_ci
+        run: docker pull saicharan0112/openfasoc_ci:latest
         
       - name: Start the container with the docker image
-        run: docker run -id --name test_openfasoc saicharan0112/openfasoc_ci bash | exit
+        run: docker run -id --name test_openfasoc saicharan0112/openfasoc_ci:latest bash | exit
         
       - name: Run the testing on the container
         run: docker exec test_openfasoc /scripts/test_openfasoc.sh
