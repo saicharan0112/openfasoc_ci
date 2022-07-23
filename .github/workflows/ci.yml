@@ -4,8 +4,8 @@ name: CI
 
 # Controls when the workflow will run
 on:
-        #push:
-        #pull_request:
+  push:
+  #pull_request:
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -17,7 +17,6 @@ jobs:
           env:
                 IMAGE_NAME: saicharan0112/openfasoc_ci:alpha
           run: |
-            docker run $IMAGE_NAME bash -c "git clone https://github.com/saicharan0112/OpenFASOC.git && cd OpenFASOC && ls -altr"
-          # /scripts/extract_commit_no.sh > commits.txt &&\
+            docker run $IMAGE_NAME bash -c "git clone https://github.com/saicharan0112/OpenFASOC.git && cd OpenFASOC && /scripts/extract_commit_no.sh > commits.txt && cat commits.txt\
           # /scripts/modify_readme.py"
               
