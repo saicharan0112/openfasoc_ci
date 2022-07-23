@@ -10,16 +10,25 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  ci_run:
-    # The type of runner that the job will run on
+  sky130hd_temp:
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Pulling the docker image
-        run: docker pull saicharan0112/openfasoc_ci:latest
-        
-      - name: Start the container with the docker image
-        run: docker run -id --name test_openfasoc saicharan0112/openfasoc_ci:latest bash | exit
-        
-      - name: Run the testing on the container
-        run: docker exec test_openfasoc /scripts/test_openfasoc.sh
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Make Sky130HD Temp
+        env:
+                IMAGE_NAME: saicharan0112/openfasoc_ci:latest
+        run: |
+          cd $GITHUB_WORKSPACE
+          touch file.log
+          docker run --rm\
+            -v $PWD:$PWD\
+            -w $PWD\
+            $IMAGE_NAME\
+            bash -c "\
+              export PDK_ROOT=/pdk_data/ &&\
+              cd ./openfasoc/generators/temp-sense-gen &&\
+              make sky130hd_temp\
+            ">> file.log
+            if grep "\[ERROR\]" file.log; then exit 1; else exit 0; fi
