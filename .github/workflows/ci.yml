@@ -17,9 +17,7 @@ jobs:
           env:
                 IMAGE_NAME: saicharan0112/openfasoc_ci:alpha
           run: |
-            docker run\
-            $IMAGE_NAME\
-            bash -c "git clone https://github.com/saicharan0112/OpenFASOC.git && cd OpenFASOC && ls -altr"
+            docker run $IMAGE_NAME bash -c "git clone https://github.com/saicharan0112/OpenFASOC.git && cd OpenFASOC && ls -altr"
           # /scripts/extract_commit_no.sh > commits.txt &&\
           # /scripts/modify_readme.py"
               
