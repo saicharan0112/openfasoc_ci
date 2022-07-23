@@ -15,11 +15,9 @@ jobs:
       steps:
         - name: Make Sky130HD Temp
           env:
-                IMAGE_NAME: saicharan0112/openfasoc_ci:latest
+                IMAGE_NAME: saicharan0112/openfasoc_ci:alpha
           run: |
-            docker run --rm\
-            -v $PWD:$PWD\
-            -w $PWD\
+            docker run\
             $IMAGE_NAME\
             bash -c "\
               git clone https://github.com/saicharan0112/OpenFASOC.git &&\
